@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.volunteers.login.EndPoint;
+
 
 @Configuration
 public class ConnectionBd extends ResourceConfig
@@ -17,10 +19,11 @@ public class ConnectionBd extends ResourceConfig
 	private String dbUrl;
 	
 	
-//    public JerseyServer()
-//    {
-//        register(Service.class);
-//    }
+    public ConnectionBd()
+    {
+        register(EmptyEndPoint.class);
+        register(EndPoint.class);
+    }
     
     @Bean
     public BasicDataSource dataSource() throws URISyntaxException {
