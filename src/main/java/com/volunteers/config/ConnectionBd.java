@@ -1,4 +1,4 @@
-package com.colunteers.config;
+package com.volunteers.config;
 
 import java.net.URI;
 import java.net.URISyntaxException;
