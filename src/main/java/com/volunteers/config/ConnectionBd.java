@@ -24,6 +24,9 @@ public class ConnectionBd extends ResourceConfig
     
     @Bean
     public BasicDataSource dataSource() throws URISyntaxException {
+    	if (dbUrl == null) {
+			return null;
+		}
         URI dbUri = new URI(dbUrl);
 
         String username = dbUri.getUserInfo().split(":")[0];
