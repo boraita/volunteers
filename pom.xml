@@ -40,16 +40,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
-		
-		
+
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-dbcp2</artifactId>
 		    <version>2.1</version>
 		</dependency>
-=======
->>>>>>> 3fe9e01bd7643b2a67290e498800b4ecef1d80a0
 	</dependencies>
 
 	<build>
