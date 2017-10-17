@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.volunteers.login.models.Volunteer;
 
 @Path("/login")
-	public class EndPoint {
+	public class LoginEndPoint {
 	    
 	    @Autowired
 	    private DataSource dataSource;
@@ -23,22 +23,13 @@ import com.volunteers.login.models.Volunteer;
 	    @GET
 	    @Produces("application/json")
 	    public Volunteer loginVolunteer() {
-	    	Volunteer user = new Volunteer();
+	    	Volunteer user = null;
 	    	try (Connection connection = dataSource.getConnection()) {
 	    		Statement stmt = connection.createStatement();
 	      ResultSet rs = stmt.executeQuery("SELECT * FROM volunteer;");
-	      
-	        user.volunteer(
-	        		rs.getInt("id"), 
-	        		rs.getString("nick"), 
-	        		rs.getString("email"), 
-	        		rs.getString("password"), 
-	        		rs.getInt("id_roll"), 
-	        		rs.getInt("id_usuario"));
-//	        ArrayList<String> output = new ArrayList<String>();
-//	        while (rs.next()) {
-//	          output.add("Read from DB: " + rs.getString("name"));
-//	        }
+	      if(rs.next()) { 
+	        user = new Volunteer(rs);
+	      }
 	        return user;
 	    	}catch (Exception e) {
 				return user;

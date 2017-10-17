@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.volunteers.login.EndPoint;
+import com.volunteers.login.LoginEndPoint;
 
 
 @Configuration
@@ -22,7 +22,7 @@ public class ConnectionBd extends ResourceConfig
     public ConnectionBd()
     {
         register(EmptyEndPoint.class);
-        register(EndPoint.class);
+        register(LoginEndPoint.class);
     }
     
     @Bean
