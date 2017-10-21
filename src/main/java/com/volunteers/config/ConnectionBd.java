@@ -27,17 +27,17 @@ public class ConnectionBd extends ResourceConfig
     
     @Bean
     public BasicDataSource dataSource() throws URISyntaxException {
-    	if (dbUrl == null) {
+    	if (this.dbUrl == null) {
 			return null;
 		}
-        URI dbUri = new URI(dbUrl);
+        URI dbUri = new URI(this.dbUrl);
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+        this.dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(dbUrl);
+        basicDataSource.setUrl(this.dbUrl);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
 

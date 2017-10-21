@@ -21,6 +21,15 @@ public class Volunteer {
 		this.id_roll = rs.getInt("id_roll");
 		this.id_usuario = rs.getInt("id_usuario");
 	}
+	public Volunteer() throws SQLException {
+		super();
+		this.id = 0;
+		this.nick = "";
+		this.email = "";
+		this.password = "";
+		this.id_roll = 0;
+		this.id_usuario = 0;
+	}
 
 	public String getNick() {
 		return nick;

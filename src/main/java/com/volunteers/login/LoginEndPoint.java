@@ -30,6 +30,9 @@ import com.volunteers.login.models.Volunteer;
 	      if(rs.next()) { 
 	        user = new Volunteer(rs);
 	      }
+	      else {
+	    	  user = new Volunteer();
+	      }
 	        return user;
 	    	}catch (Exception e) {
 				return user;
