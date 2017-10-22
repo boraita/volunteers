@@ -37,6 +37,7 @@ public class ConnectionBd extends ResourceConfig
         this.dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
         BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setDriverClassName("org.postgresql.Driver");
         basicDataSource.setUrl(this.dbUrl);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
