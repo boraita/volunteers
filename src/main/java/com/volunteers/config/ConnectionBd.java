@@ -16,7 +16,7 @@ import com.volunteers.login.LoginEndPoint;
 public class ConnectionBd extends ResourceConfig
 {
 	@Value("${spring.datasource.url}")
-	private String dbUrl = System.getenv("DATABASE_URL");
+	private String dbUrl;
 	
 	
     public ConnectionBd()
@@ -27,8 +27,8 @@ public class ConnectionBd extends ResourceConfig
     
     @Bean
     public BasicDataSource dataSource() throws URISyntaxException {
-    	if (this.dbUrl == null) {
-			return null;
+    	if (this.dbUrl.isEmpty()) {
+			this.dbUrl = System.getenv("DATABASE_URL");
 		}
         URI dbUri = new URI(this.dbUrl);
 
