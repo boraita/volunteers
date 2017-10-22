@@ -16,7 +16,7 @@ import com.volunteers.login.LoginEndPoint;
 public class ConnectionBd extends ResourceConfig
 {
 	@Value("${spring.datasource.url}")
-	private String dbUrl;
+	private String dbUrl = System.getenv("DATABASE_URL");
 	
 	
     public ConnectionBd()
