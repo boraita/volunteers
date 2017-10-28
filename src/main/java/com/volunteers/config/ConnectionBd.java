@@ -2,12 +2,16 @@ package com.volunteers.config;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import com.volunteers.login.LoginEndPoint;
 
@@ -26,7 +30,9 @@ public class ConnectionBd extends ResourceConfig
     }
     
     @Bean
-    public BasicDataSource dataSource() throws URISyntaxException {
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public Connection dataSource() throws URISyntaxException, SQLException {
     	if (this.dbUrl.isEmpty()) {
 			this.dbUrl = System.getenv("DATABASE_URL");
 		}
@@ -35,14 +41,8 @@ public class ConnectionBd extends ResourceConfig
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         this.dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setDriverClassName("org.postgresql.Driver");
-        basicDataSource.setUrl(this.dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-
-        return basicDataSource;
+        
+        return DriverManager.getConnection(dbUrl, username, password);
     }
 	
 }
