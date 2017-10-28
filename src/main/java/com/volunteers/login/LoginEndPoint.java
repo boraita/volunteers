@@ -2,6 +2,7 @@ package com.volunteers.login;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.sql.DataSource;
@@ -22,9 +23,10 @@ import com.volunteers.login.models.Volunteer;
 
 	    @GET
 	    @Produces("application/json")
-	    public Volunteer loginVolunteer() {
+	    public Volunteer loginVolunteer() throws SQLException {
 	    	Volunteer user = null;
-	    	try (Connection connection = dataSource.getConnection()) {
+	    		Connection connection = dataSource.getConnection();
+	    	
 	    		Statement stmt = connection.createStatement();
 	      ResultSet rs = stmt.executeQuery("SELECT * FROM volunteer;");
 	      if(rs.next()) { 
@@ -34,8 +36,6 @@ import com.volunteers.login.models.Volunteer;
 	    	  user = new Volunteer();
 	      }
 	        return user;
-	    	}catch (Exception e) {
-				return user;
-			}
-	    }
+	    }	
+	    
 	}
