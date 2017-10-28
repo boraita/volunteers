@@ -33,6 +33,8 @@ public class ConnectionBd extends ResourceConfig
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource")
     public Connection dataSource() throws URISyntaxException, SQLException {
+    	System.out.println("primera url = " + this.dbUrl);
+    	System.out.println(System.getenv("DATABASE_URL"));
     	if (this.dbUrl.isEmpty()) {
 			this.dbUrl = System.getenv("DATABASE_URL");
 		}
