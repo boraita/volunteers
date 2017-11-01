@@ -26,9 +26,13 @@ public class ConnectionBd extends ResourceConfig {
 
   @Bean
   public DataSource dataSource() throws URISyntaxException, SQLException {
-    if (this.dbUrl.isEmpty() && this.dbUrl != System.getenv("DATABASE_URL")) {
+    if (this.dbUrl.isEmpty() && System.getenv("DATABASE_URL") != null) {
       this.dbUrl = System.getenv("DATABASE_URL");
+      System.out.println("Change connection dbUrl: "+this.dbUrl );
+    }else {
+    	System.out.println("not changed urlConnection: "+this.dbUrl);
     }
+    
     URI dbUri = new URI(this.dbUrl);
 
     String username = dbUri.getUserInfo().split(":")[0];
