@@ -24,11 +24,11 @@ import com.volunteers.login.models.Volunteer;
 	    @GET
 	    @Produces("application/json")
 	    public Volunteer loginVolunteer() throws SQLException {
-	    	Volunteer user = null;
-	    		Connection connection = dataSource.getConnection();
-	    	
-	    		Statement stmt = connection.createStatement();
-	      ResultSet rs = stmt.executeQuery("SELECT * FROM volunteer;");
+	    	Volunteer user;
+    		Connection connection = dataSource.getConnection();
+    	
+    		Statement stmt = connection.createStatement();
+    		ResultSet rs = stmt.executeQuery("SELECT * FROM volunteer;");
 	      if(rs.next()) { 
 	        user = new Volunteer(rs);
 	      }
@@ -36,6 +36,6 @@ import com.volunteers.login.models.Volunteer;
 	    	  user = new Volunteer();
 	      }
 	        return user;
-	    }	
+	    }
 	    
 	}
