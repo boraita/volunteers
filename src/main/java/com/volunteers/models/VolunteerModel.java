@@ -1,9 +1,9 @@
-package com.volunteers.login.models;
+package com.volunteers.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Volunteer {
+public class VolunteerModel {
 	
 	private int id;
 	private String nick;
@@ -12,7 +12,7 @@ public class Volunteer {
 	private int id_roll;
 	private int id_usuario;
 	
-	public Volunteer(ResultSet rs) throws SQLException {
+	public VolunteerModel(ResultSet rs) throws SQLException {
 		super();
 		this.id = rs.getInt("id");
 		this.nick = rs.getString("nick");
@@ -21,7 +21,7 @@ public class Volunteer {
 		this.id_roll = rs.getInt("id_roll");
 		this.id_usuario = rs.getInt("id_usuario");
 	}
-	public Volunteer() throws SQLException {
+	public VolunteerModel() throws SQLException {
 		super();
 		this.id = 0;
 		this.nick = "";

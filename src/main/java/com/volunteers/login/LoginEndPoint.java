@@ -2,38 +2,52 @@ package com.volunteers.login;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import javax.sql.DataSource;
-import javax.ws.rs.GET;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.volunteers.login.models.Volunteer;
+import com.volunteers.models.UserModel;
 
-@Path("/login")
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+
+@Path("/api")
 	public class LoginEndPoint {
 	    
 	    @Autowired
 	    private DataSource dataSource;
 	    
-
-	    @GET
+	    @POST
+	    @Path("login")
 	    @Produces("application/json")
-	    public Volunteer loginVolunteer() throws SQLException {
-	    	Volunteer user;
+	    public UserModel loginVolunteer(
+	    		@FormParam("user") String userString,
+	    		@FormParam("pass") String pass) throws Exception {
+	    	String jwtToken = "";
+	    	if (userString == null || userString == null) {
+	            throw new Exception("Please fill in username and password");
+	        }
+	    	UserModel user;
     		Connection connection = dataSource.getConnection();
-    	
     		Statement stmt = connection.createStatement();
-    		ResultSet rs = stmt.executeQuery("SELECT * FROM volunteer;");
+    		ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE (nick = '"+userString.toLowerCase()+"' OR email = '"+userString.toLowerCase()+"') "
+    				+ "AND password = '"+pass+"';");
 	      if(rs.next()) { 
-	        user = new Volunteer(rs);
+	    	  user = new UserModel(rs);
+    	  		jwtToken = Jwts.builder().setSubject(user.getEmail()).claim("roles", "user").setIssuedAt(new Date())
+	  				.signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+	        
 	      }
 	      else {
-	    	  user = new Volunteer();
+	    	  user = null;
 	      }
 	        return user;
 	    }
