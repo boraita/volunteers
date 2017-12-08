@@ -31,7 +31,7 @@ public class UserModel {
 			this.registered_date = rs.getString("registered_date");
 			this.id_lopd = rs.getInt("id_lopd");
 			this.image = rs.getInt("id_image");
-			this.setNick(rs.getString("nick"));
+			this.nick = rs.getString("nick");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

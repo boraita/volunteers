@@ -1,14 +1,12 @@
 package com.volunteers.config;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Path("/")
+@RestController
+@RequestMapping("/api")
 public class EmptyEndPoint {
 	
-	@GET
-    @Produces("application/json")
     public String error404() {
         return "404";
     }

@@ -7,22 +7,15 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.volunteers.login.LoginEndPoint;
-
 @Configuration
-public class ConnectionBd extends ResourceConfig {
+public class ConnectionBd {
   @Value("${spring.datasource.url}")
   private String dbUrl;
 
-  public ConnectionBd() {
-    register(EmptyEndPoint.class);
-    register(LoginEndPoint.class);
-  }
 
   @Bean
   public DataSource dataSource() throws URISyntaxException, SQLException {
